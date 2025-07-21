@@ -1,0 +1,32 @@
+<input type="file" id="binaryInput" />
+<img id="image" alt="Uploaded image" />
+<pre id="hexOutput"></pre>
+
+<script>
+  document
+    .getElementById("binaryInput")
+    .addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          const arrayBuffer = reader.result;
+
+          // Display image from ArrayBuffer
+          const blob = new Blob([arrayBuffer], { type: file.type });
+          const imageURL = URL.createObjectURL(blob);
+          document.getElementById("image").src = imageURL;
+
+          // Show hex output
+          const byteArray = new Uint8Array(arrayBuffer);
+          const hexOutput = Array.from(byteArray)
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join(" ");
+          document.getElementById("hexOutput").textContent = hexOutput;
+        };
+
+        reader.readAsArrayBuffer(file);
+      }
+    });
+</script>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Blob Tutorial</title>
+</head>
+<body>
+  <h2>🧪 JavaScript Blob Examples</h2>
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById("output");
+
+    // ----------------------------------------
+    // 1. Creating a Simple Text Blob
+    // ----------------------------------------
+
+    // A Blob can be created from strings or binary data.
+    // Here we create a blob with a simple text message.
+    const textBlob = new Blob(["Hello, Blob world!"], { type: "text/plain" });
+
+    // Display blob size and type
+    output.innerHTML += "<h3>1. Text Blob</h3>";
+    output.innerHTML += "Blob size: " + textBlob.size + " bytes<br>"; // Size in bytes
+    output.innerHTML += "Blob type: " + textBlob.type + "<br><br>";    // MIME type
+
+    // ----------------------------------------
+    // 2. Creating a Blob from JSON
+    // ----------------------------------------
+
+    // Convert a JavaScript object into JSON string
+    const json = JSON.stringify({ name: "Alice", age: 30 });
+
+    // Create a blob containing JSON data with the appropriate MIME type
+    const jsonBlob = new Blob([json], { type: "application/json" });
+
+    output.innerHTML += "<h3>2. JSON Blob</h3>";
+    output.innerHTML += "Blob type: " + jsonBlob.type + "<br><br>"; // application/json
+
+    // ----------------------------------------
+    // 3. Reading Blob content using FileReader
+    // ----------------------------------------
+
+    // FileReader can read content from Blob objects
+    const reader = new FileReader();
+
+    // When reading is complete, output the result
+    reader.onload = function () {
+      output.innerHTML += "<h3>3. Reading Blob with FileReader</h3>";
+      output.innerHTML += "Content: " + reader.result + "<br><br>";
+    };
+
+    // Read text content from the previously created textBlob
+    reader.readAsText(textBlob); // Async operation
+
+    // ----------------------------------------
+    // 4. Creating a Blob and generating a Download Link
+    // ----------------------------------------
+
+    // Create a Blob for downloadable text content
+    const downloadBlob = new Blob(["Download this text file."], { type: "text/plain" });
+
+    // Generate a URL for the blob using URL.createObjectURL
+    const downloadURL = URL.createObjectURL(downloadBlob);
+
+    // Create an anchor (<a>) tag to download the file
+    const link = document.createElement("a");
+    link.href = downloadURL;               // Set the download link
+    link.download = "example.txt";         // Set the download filename
+    link.textContent = "📥 Download example.txt"; // Text to show
+
+    // Display the download link in the HTML
+    output.appendChild(document.createElement("h3")).innerText = "4. Download a Blob as File";
+    output.appendChild(link); // Append the link to the output
+
+    // ----------------------------------------
+    // 5. Blob from ArrayBuffer (binary data)
+    // ----------------------------------------
+
+    // Create an ArrayBuffer with 8 bytes
+    const buffer = new ArrayBuffer(8);
+
+    // Create a typed array view (Uint8Array) on the buffer
+    const intView = new Uint8Array(buffer);
+
+    // Fill the buffer with ASCII values for A, B, C, D
+    intView.set([65, 66, 67, 68]); // A=65, B=66, C=67, D=68
+
+    // Create a blob from the binary buffer
+    const binaryBlob = new Blob([intView], { type: "application/octet-stream" });
+
+    output.innerHTML += "<br><br><h3>5. Blob from Binary Data</h3>";
+    output.innerHTML += "Binary Blob size: " + binaryBlob.size + " bytes<br><br>";
+
+    // ----------------------------------------
+    // 6. Creating an Image Blob from a Base64 string
+    // ----------------------------------------
+
+    // Base64-encoded image string (1px PNG)
+    const base64Data = atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgVhi7BsAAAAASUVORK5CYII=");
+
+    // Convert base64 to Uint8Array (binary representation)
+    const bytes = new Uint8Array(base64Data.length);
+    for (let i = 0; i < base64Data.length; i++) {
+      bytes[i] = base64Data.charCodeAt(i);
+    }
+
+    // Create a PNG image Blob
+    const imageBlob = new Blob([bytes], { type: "image/png" });
+
+    // Create a blob URL for displaying the image
+    const imageURL = URL.createObjectURL(imageBlob);
+
+    // Create an <img> element to display the blob
+    const img = new Image();
+    img.src = imageURL;
+    img.alt = "Tiny PNG";
+
+    // Display image on the page
+    output.innerHTML += "<h3>6. Image from Blob</h3>";
+    output.appendChild(img);
+  </script>
+</body>
+</html>
