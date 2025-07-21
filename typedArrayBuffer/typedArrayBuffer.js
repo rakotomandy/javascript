@@ -1,6 +1,30 @@
 // -------------------------------------------------------------
 // 🧠 COMPLETE JAVASCRIPT LESSON ON TYPED ARRAYS AND BUFFERS
 // -------------------------------------------------------------
+// ----------------------------------------
+// 📘 ArrayBuffer Definition
+// ----------------------------------------
+/**
+ * 🔶 What is an ArrayBuffer?
+ * An ArrayBuffer is a low-level binary data buffer used to store raw memory.
+ * It represents a fixed-length sequence of bytes (not directly readable).
+ *
+ * ➕ It is often used with **typed arrays** (like Uint8Array, Float32Array) to read or write
+ *     binary data in a structured way.
+ *
+ * ➕ It is useful for:
+ *   - Reading binary files (images, videos, PDFs)
+ *   - Working with WebSockets, WebRTC, or other binary streams
+ *   - Creating or manipulating binary formats like WAV, PNG, etc.
+ *
+ * 🔧 Syntax:
+ *   const buffer = new ArrayBuffer(byteLength);
+ *   - `byteLength`: number of bytes to allocate (fixed size).
+ *
+ * 🔒 Note:
+ *   You cannot read/write directly to an ArrayBuffer.
+ *   Instead, you use typed array views (e.g. `new Uint8Array(buffer)`) to work with it.
+ */
 
 // 🔹 1. ArrayBuffer: A raw binary data buffer that holds a fixed-length sequence of bytes
 // It cannot be read or written directly; we need a view to interact with it
