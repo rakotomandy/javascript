@@ -29,9 +29,8 @@ const myPromise = new Promise((resolve, reject) => {
 });
 
 myPromise
-  .then(result => console.log(result)) // Handle success
-  .catch(error => console.error(error)); // Handle error
-
+  .then((result) => console.log(result)) // Handle success
+  .catch((error) => console.error(error)); // Handle error
 
 // ===================================================
 // ✅ Simulating Asynchronous Behavior with setTimeout
@@ -46,9 +45,8 @@ function asyncTask() {
 }
 
 asyncTask()
-  .then(message => console.log(message)) // Output success message
-  .catch(err => console.error("Error:", err)); // Handle any error
-
+  .then((message) => console.log(message)) // Output success message
+  .catch((err) => console.error("Error:", err)); // Handle any error
 
 // ===================================================
 // ✅ Chaining Promises
@@ -63,10 +61,9 @@ function secondStep(prevMessage) {
 }
 
 firstStep()
-  .then(result1 => secondStep(result1)) // Chain second step
-  .then(result2 => console.log(result2)) // Final result
-  .catch(err => console.error("Error in chain:", err)); // Catch any error in chain
-
+  .then((result1) => secondStep(result1)) // Chain second step
+  .then((result2) => console.log(result2)) // Final result
+  .catch((err) => console.error("Error in chain:", err)); // Catch any error in chain
 
 // ===================================================
 // ✅ Now that you know Promises...
@@ -76,12 +73,9 @@ You are ready to learn async/await – a simpler way to write the same logic
 without chaining .then()/.catch(). It makes your code cleaner.
 */
 
-
-
 // ===================================================
 // ✅ JavaScript Async & Await – Full Lesson with Comments
 // ===================================================
-
 
 // ===================================================
 // ✅ 1. What is async/await?
@@ -91,7 +85,6 @@ without chaining .then()/.catch(). It makes your code cleaner.
 🔸 Helps you handle promises more clearly than using .then().catch()
 🔸 Makes code easier to read, debug, and maintain
 */
-
 
 // ===================================================
 // ✅ 2. The async Keyword
@@ -105,8 +98,7 @@ async function exampleAsync() {
   return "Hello from async function!"; // Implicitly returns a resolved Promise
 }
 
-exampleAsync().then(result => console.log(result)); // Output the resolved value when the promise completes
-
+exampleAsync().then((result) => console.log(result)); // Output the resolved value when the promise completes
 
 // ===================================================
 // ✅ 3. The await Keyword
@@ -118,7 +110,7 @@ exampleAsync().then(result => console.log(result)); // Output the resolved value
 */
 
 function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms)); // Create a promise that resolves after ms milliseconds
+  return new Promise((resolve) => setTimeout(resolve, ms)); // Create a promise that resolves after ms milliseconds
 }
 
 async function waitAndPrint() {
@@ -128,7 +120,6 @@ async function waitAndPrint() {
 }
 
 waitAndPrint(); // Call the async function
-
 
 // ===================================================
 // ✅ 4. Async/Await with fetch API
@@ -148,7 +139,6 @@ async function fetchPost() {
 }
 
 fetchPost(); // Call the function to fetch post
-
 
 // ===================================================
 // ✅ 5. Mixing async/await with try...catch
@@ -170,7 +160,6 @@ async function safeDivide(a, b) {
 safeDivide(10, 2); // Expected output: 5
 safeDivide(10, 0); // Expected output: ❌ Math error: Division by zero
 
-
 // ===================================================
 // ✅ 6. Summary – async/await Concepts
 // ===================================================
@@ -181,15 +170,18 @@ safeDivide(10, 0); // Expected output: ❌ Math error: Division by zero
 🔹 Use try...catch for error handling
 */
 
-
 // ===================================================
 // ✅ 7. Bonus: Parallel Async Calls
 // ===================================================
 
 async function fetchMultiple() {
   const [post1, post2] = await Promise.all([
-    fetch("https://jsonplaceholder.typicode.com/posts/1").then(res => res.json()), // Fetch and parse post 1
-    fetch("https://jsonplaceholder.typicode.com/posts/2").then(res => res.json())  // Fetch and parse post 2
+    fetch("https://jsonplaceholder.typicode.com/posts/1").then((res) =>
+      res.json()
+    ), // Fetch and parse post 1
+    fetch("https://jsonplaceholder.typicode.com/posts/2").then((res) =>
+      res.json()
+    ), // Fetch and parse post 2
   ]);
 
   console.log("Post 1:", post1); // Log first post
@@ -197,7 +189,6 @@ async function fetchMultiple() {
 }
 
 fetchMultiple(); // Run parallel fetch operations
-
 
 // ===================================================
 // ✅ 8. Real-World Example – User Login and Data Load
@@ -210,7 +201,7 @@ Imagine a scenario where:
 */
 
 function fakeLogin(user) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       console.log("🔐 Logged in as:", user); // Log the login user name
       resolve({ token: "abc123" }); // Resolve with a mock token
@@ -219,7 +210,7 @@ function fakeLogin(user) {
 }
 
 function fetchProfile(token) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       console.log("📥 Fetched profile using token:", token); // Log fetched profile message
       resolve({ name: "Alice", age: 30 }); // Resolve with profile data
@@ -234,4 +225,3 @@ async function loginAndLoadProfile() {
 }
 
 loginAndLoadProfile(); // Call the full async login and profile loading process
-
